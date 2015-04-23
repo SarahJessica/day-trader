@@ -1,20 +1,90 @@
 doctype html
-html(lang='en', ng-app='poseidon')
+html(lang='en', ng-app='day-trader')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Poseidon
+    title Day Trader
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/superhero/bootstrap.min.css')
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
-  body
-    .container-fluid
+  body(ng-controller="master")
+    .container
       .row
         .col-xs-12
-          h1 Poseidon
-
+          h1 Day Trader
+      .row
+        .col-xs-6
+          .form-group
+            label(for="name") Name
+            input.form-control#name(type="text" placeholder="bob" ng-model="user.name")
+        .col-xs-6
+          .form-group
+            label(for="symbol") Symbol
+            input.form-control#symbol(type="text" placeholder="AAPL" ng-model="stock.symbol")
+      .row
+        .col-xs-6
+          .form-group
+            label(for="balance") Balance
+            input.form-control#balance(type="number" ng-model="user.balance")
+        .col-xs-3
+          .form-group
+            label(for="numShares") Number of Shares
+            input.form-control#numShares(type="number" ng-model="stock.shares")
+        .col-xs-3
+          .form-group
+            label(for="pickPort") Pick Portfolio
+            select#pickPort.form-control(ng-model="stock.portfolio")
+              option Technology
+              option Medical
+              option Real Estate
+      .row
+        .col-xs-6
+          .form-group
+            button.btn.btn-success.form-control(ng-click="saveUser()") Save
+        .col-xs-6
+          .form-group
+            button.btn.btn-danger.form-control(ng-click="buyStock()") Buy Now!
+    .container
+      .row
+        .col-xs-12.col-md-4
+          h2 Technology
+          table.table.table-striped
+            thead
+              th Symbol
+              th Position
+              th Transaction
+            tbody
+              tr
+                td
+                td
+                td
+        .col-xs-12.col-md-4
+          h2 Medical
+          table.table.table-striped
+            thead
+              th Symbol
+              th Position
+              th Transaction
+            tbody
+              tr
+                td
+                td
+                td
+        .col-xs-12.col-md-4
+          h2 Real Estate
+          table.table.table-striped
+            thead
+              th Symbol
+              th Position
+              th Sell
+            tbody
+              tr
+                td {{stock.symbol}}
+                td {{stock.position}}
+                td {{stock.sell}}
+      
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
     script(src='/vendor/lodash/lodash.min.js')

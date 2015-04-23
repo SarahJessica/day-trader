@@ -37,6 +37,7 @@ angular.module('day-trader', ['firebase'])
   $scope.sellStock = function(stock,port){
     $scope.user.balance += (stock.price * stock.shares);
     $scope[port].$remove(stock);
+    $scope.saveUser();
   };
 
   $scope.buyStock = function(){
@@ -52,7 +53,7 @@ angular.module('day-trader', ['firebase'])
       } else {
         alert('Check you input and try again..');
       }
-
+      $scope.newBalance(0,0);
     });
   };
 

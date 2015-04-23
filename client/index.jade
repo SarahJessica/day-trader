@@ -5,15 +5,17 @@ html(lang='en', ng-app='day-trader')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Day Trader
-    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/superhero/bootstrap.min.css')
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css')
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
   body(ng-controller="master")
     .container
       .row
-        .col-xs-12
+        .col-xs-6
           h1 Day Trader
+        .col-xs-6
+          h1 {{user.balance  | currency}}
       .row
         .col-xs-6
           .form-group
@@ -50,40 +52,49 @@ html(lang='en', ng-app='day-trader')
       .row
         .col-xs-12.col-md-4
           h2 Technology
+          h3 Portfolio Total: {{portTotal('technology') | currency}}
           table.table.table-striped
             thead
               th Symbol
               th Position
+              th Qty:
               th Sell
             tbody
               tr(ng-repeat="stock in technology")
                 td {{stock.symbol}}
-                td {{stock.price}}
-                td: button.btn.btn-danger.btn-sm Sell
+                td {{stock.price * stock.shares | currency}}
+                td {{stock.shares}}
+                td: button.btn.btn-danger.btn-sm(ng-click="sellStock(stock,'technology')") Sell All
         .col-xs-12.col-md-4
           h2 Medical
+          h3 Portfolio Total: {{portTotal('medical') | currency}}
           table.table.table-striped
             thead
               th Symbol
               th Position
+              th Qty:
               th Sell
             tbody
               tr(ng-repeat="stock in medical")
                 td {{stock.symbol}}
-                td {{stock.price}}
-                td: button.btn.btn-danger.btn-sm Sell
+                td {{stock.price * stock.shares | currency}}
+                td {{stock.shares}}
+                td: button.btn.btn-danger.btn-sm(ng-click="sellStock(stock,'medical')") Sell All
         .col-xs-12.col-md-4
           h2 Real Estate
+          h3 Portfolio Total: {{portTotal('realestate') | currency}}
           table.table.table-striped
             thead
               th Symbol
               th Position
+              th Qty:
               th Sell
             tbody
               tr(ng-repeat="stock in realestate")
                 td {{stock.symbol}}
-                td {{stock.price}}
-                td: button.btn.btn-danger.btn-sm Sell
+                td {{stock.price * stock.shares | currency}}
+                td {{stock.shares}}
+                td: button.btn.btn-danger.btn-sm(ng-click="sellStock(stock,'realestate')") Sell All
       
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')

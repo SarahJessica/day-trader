@@ -26,6 +26,19 @@ angular.module('day-trader', ['firebase'])
     $scope.user.$save();
   };
 
+  $scope.portTotal = function(portfolio){
+    var total = 0;
+    $scope[portfolio].forEach(function(current){
+      total += (current.price * current.shares);
+    });
+    return total;
+  };
+
+  $scope.sellStock = function(stock,port){
+    $scope.user.balance += (stock.price * stock.shares);
+    $scope[port].$remove(stock);
+  };
+
   $scope.buyStock = function(){
     $http.jsonp('http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol='+$scope.stock.symbol+'&callback=JSON_CALLBACK').then(function(response){
       var stock = {};
@@ -33,10 +46,18 @@ angular.module('day-trader', ['firebase'])
       stock.symbol = $scope.stock.symbol;
       stock.price = (response.data.LastPrice);
 
-      if ($scope.stock.portfolio){
+      if ($scope.user.balance - (stock.shares * stock.price) >= 0 && ($scope.stock.portfolio)){
         $scope[$scope.stock.portfolio].$add(stock);
-      } else {alert('Please pick a portfolio and try again.');}
+        $scope.newBalance(stock.price, stock.shares);
+      } else {
+        alert('Check you input and try again..');
+      }
+
     });
   };
 
+  $scope.newBalance = function(price, shares){
+    $scope.user.balance = ($scope.user.balance - (price * shares));
+    $scope.saveUser();
+  };
 }]);

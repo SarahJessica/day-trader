@@ -36,9 +36,9 @@ html(lang='en', ng-app='day-trader')
           .form-group
             label(for="pickPort") Pick Portfolio
             select#pickPort.form-control(ng-model="stock.portfolio")
-              option Technology
-              option Medical
-              option Real Estate
+              option(value="technology") Technology
+              option(value="medical") Medical
+              option(value="realestate") Real Estate
       .row
         .col-xs-6
           .form-group
@@ -54,24 +54,24 @@ html(lang='en', ng-app='day-trader')
             thead
               th Symbol
               th Position
-              th Transaction
+              th Sell
             tbody
-              tr
-                td
-                td
-                td
+              tr(ng-repeat="stock in technology")
+                td {{stock.symbol}}
+                td {{stock.price}}
+                td: button.btn.btn-danger.btn-sm Sell
         .col-xs-12.col-md-4
           h2 Medical
           table.table.table-striped
             thead
               th Symbol
               th Position
-              th Transaction
+              th Sell
             tbody
-              tr
-                td
-                td
-                td
+              tr(ng-repeat="stock in medical")
+                td {{stock.symbol}}
+                td {{stock.price}}
+                td: button.btn.btn-danger.btn-sm Sell
         .col-xs-12.col-md-4
           h2 Real Estate
           table.table.table-striped
@@ -80,10 +80,10 @@ html(lang='en', ng-app='day-trader')
               th Position
               th Sell
             tbody
-              tr
+              tr(ng-repeat="stock in realestate")
                 td {{stock.symbol}}
-                td {{stock.position}}
-                td {{stock.sell}}
+                td {{stock.price}}
+                td: button.btn.btn-danger.btn-sm Sell
       
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')

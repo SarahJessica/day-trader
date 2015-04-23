@@ -51,7 +51,7 @@ angular.module('day-trader', ['firebase'])
         $scope[$scope.stock.portfolio].$add(stock);
         $scope.newBalance(stock.price, stock.shares);
       } else {
-        alert('Check you input and try again..');
+        alert('Check your input and try again..');
       }
       $scope.newBalance(0,0);
     });
